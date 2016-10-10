@@ -76,7 +76,7 @@ public class SignInView extends View {
 
     public SignInView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        createData();
+        Log.e("--TAG---", "构造函数--->>");
         initAttrs(context, attrs, defStyleAttr);
         initToolsAndData();
     }
@@ -84,6 +84,7 @@ public class SignInView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        Log.e("--TAG---", "onSizeChanged--->>");
         viewPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEF_PADDING, getResources().getDisplayMetrics());
         int textMarginTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, TEXT_MARGIN_TOP, getResources().getDisplayMetrics());
 
@@ -104,6 +105,8 @@ public class SignInView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Log.e("--TAG---", "onMeasure--->>");
+
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int measureHeight;
 
@@ -127,6 +130,7 @@ public class SignInView extends View {
 
     /**
      * 属性动画的形式绘制进度条
+     *
      * @param canvas
      */
     private void drawSignInPbRectWithAnim(final Canvas canvas) {
@@ -238,8 +242,9 @@ public class SignInView extends View {
     }
 
     public void setSignInData(List<String> signInData) {
+        Log.e("--TAG---", "外界设置数据--->>");
         if (null != signInData) {
-            viewData.addAll(signInData);
+            viewData = signInData;
         }
     }
 
@@ -263,13 +268,6 @@ public class SignInView extends View {
     public void resetSignView() {
         currentSignTag = -1;
         invalidate();
-    }
-
-    private void createData() {
-        viewData = new ArrayList<>();
-        for (int i = 1; i < 8; i++) {
-            viewData.add(i + "");
-        }
     }
 
     private void calculateCirclePoints(List<String> viewData) {
@@ -304,4 +302,9 @@ public class SignInView extends View {
     }
 
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Log.e("--TAG---", "onAttachedToWindow--->>");
+    }
 }
