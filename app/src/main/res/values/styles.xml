@@ -17,4 +17,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="def_sign_in_style">
+        <item name="sign_in_bg_clor">@android:color/white</item>
+        <item name="sign_in_pb_clor">@android:color/holo_orange_dark</item>
+        <item name="sign_in_check_clor">@android:color/white</item>
+        <item name="sign_in_text_clor">@android:color/holo_purple</item>
+        <item name="sign_in_text_size">12sp</item>
+    </style>
 </resources>

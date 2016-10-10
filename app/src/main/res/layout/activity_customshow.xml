@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_green_light">
+
+    <com.behivordemo.customview.SignInView
+        android:id="@+id/sign_in_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/tv_sign_in"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/sign_in_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="签到"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

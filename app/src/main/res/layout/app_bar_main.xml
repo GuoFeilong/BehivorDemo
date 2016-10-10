@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.behivordemo.MainActivity">
+    tools:context="com.behivordemo.ui.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@android:color/holo_purple"
         app:layout_behavior="@string/scroll_aware_fab"
         app:layout_scrollFlags="scroll|enterAlways|snap"
         app:rippleColor="@android:color/holo_green_light"

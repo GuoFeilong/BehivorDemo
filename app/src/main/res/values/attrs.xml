@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SignInView">
+        <attr name="sign_in_bg_clor" format="color" />
+        <attr name="sign_in_pb_clor" format="color" />
+        <attr name="sign_in_check_clor" format="color" />
+        <attr name="sign_in_text_clor" format="color" />
+        <attr name="sign_in_text_size" format="dimension" />
+    </declare-styleable>
+</resources>

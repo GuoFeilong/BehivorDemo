@@ -1,5 +1,6 @@
-package com.behivordemo;
+package com.behivordemo.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.behivordemo.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +62,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         behivorAdapter = new BehivorAdapter();
         behivorAdapter.setData(testData);
-
+        behivorAdapter.setOnReClickLister(new OnReClickLister() {
+            @Override
+            public void onReItemClick(int position) {
+                Intent intent = new Intent(MainActivity.this, CustomShowActivity.class);
+                startActivity(intent);
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(behivorAdapter);
@@ -67,9 +76,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout = (TabLayout) findViewById(R.id.tab_temp);
 
         for (int i = 0; i < 4; i++) {
-            tabLayout.addTab(tabLayout.newTab().setText("娱乐"+i));
+            tabLayout.addTab(tabLayout.newTab().setText("娱乐" + i));
         }
-
     }
 
     @Override
@@ -131,6 +139,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     class BehivorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private List<String> data;
+        private OnReClickLister onReClickLister;
+
+        public void setOnReClickLister(OnReClickLister onReClickLister) {
+            this.onReClickLister = onReClickLister;
+        }
 
         public void setData(List<String> data) {
             this.data = data;
@@ -142,9 +155,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             BehivorVH behivorVH = (BehivorVH) holder;
             behivorVH.testDesc.setText(data.get(position));
+            if (null != onReClickLister) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onReClickLister.onReItemClick(position);
+                    }
+                });
+            }
         }
 
         @Override
@@ -160,5 +181,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 testDesc = (TextView) itemView.findViewById(R.id.tv_desc);
             }
         }
+    }
+
+    interface OnReClickLister {
+        void onReItemClick(int position);
     }
 }
