@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
+import android.view.Gravity;
 import android.view.View;
 
 import com.behivordemo.R;
@@ -43,7 +44,11 @@ public class CustomShowActivity extends AppCompatActivity {
             }
         });
 
-        MaterialAimUtils materialAimUtils = new MaterialAimUtils.Builder().animDuration(500).materialAimType(MaterialAimUtils.MaterialAimType.EXPLODE).build();
+        MaterialAimUtils materialAimUtils = new MaterialAimUtils
+                .Builder().animDuration(600)
+                .materialAimType(MaterialAimUtils.MaterialAimType.SLIDE)
+                .slideGrivaty(Gravity.RIGHT)
+                .build();
         materialAimUtils.setEixtMaterial(this);
         materialAimUtils.setEnterMaterial(this);
     }

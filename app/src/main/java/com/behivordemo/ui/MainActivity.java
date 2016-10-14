@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         materialAimUtils = new MaterialAimUtils
                 .Builder()
-                .materialAimType(MaterialAimUtils.MaterialAimType.SLIDE)
-                .animDuration(800)
+                .materialAimType(MaterialAimUtils.MaterialAimType.EXPLODE)
+                .animDuration(600)
                 .slideGrivaty(Gravity.END)
                 .build();
 
