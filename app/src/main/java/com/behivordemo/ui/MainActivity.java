@@ -1,12 +1,17 @@
 package com.behivordemo.ui;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.behivordemo.R;
+import com.behivordemo.material.MaterialAimUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +36,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<String> testData;
     private BehivorAdapter behivorAdapter;
     private TabLayout tabLayout;
+    private MaterialAimUtils materialAimUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        materialAimUtils = new MaterialAimUtils
+                .Builder()
+                .materialAimType(MaterialAimUtils.MaterialAimType.SLIDE)
+                .animDuration(800)
+                .slideGrivaty(Gravity.END)
+                .build();
+
+        materialAimUtils.setEixtMaterial(this);
+        materialAimUtils.setEnterMaterial(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -65,8 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         behivorAdapter.setOnReClickLister(new OnReClickLister() {
             @Override
             public void onReItemClick(int position) {
-                Intent intent = new Intent(MainActivity.this, CustomShowActivity.class);
-                startActivity(intent);
+                MaterialAimUtils.startActivityWithMaterialAim(MainActivity.this,CustomShowActivity.class);
             }
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -78,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for (int i = 0; i < 4; i++) {
             tabLayout.addTab(tabLayout.newTab().setText("娱乐" + i));
         }
+
+
+
+
     }
 
     @Override

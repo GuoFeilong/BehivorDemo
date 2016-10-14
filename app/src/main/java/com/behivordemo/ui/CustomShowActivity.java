@@ -3,10 +3,14 @@ package com.behivordemo.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.View;
 
 import com.behivordemo.R;
 import com.behivordemo.customview.SignInView;
+import com.behivordemo.material.MaterialAimUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +42,9 @@ public class CustomShowActivity extends AppCompatActivity {
                 signInView.signInEvent();
             }
         });
+
+        MaterialAimUtils materialAimUtils = new MaterialAimUtils.Builder().animDuration(500).materialAimType(MaterialAimUtils.MaterialAimType.EXPLODE).build();
+        materialAimUtils.setEixtMaterial(this);
+        materialAimUtils.setEnterMaterial(this);
     }
 }
