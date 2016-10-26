@@ -22,4 +22,11 @@
         android:text="签到"
         android:textColor="@android:color/white" />
 
+    <com.behivordemo.customview.ClearCircleView
+        android:id="@+id/cc_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
 </RelativeLayout>

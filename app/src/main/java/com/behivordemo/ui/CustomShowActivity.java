@@ -3,13 +3,11 @@ package com.behivordemo.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.view.Gravity;
 import android.view.View;
 
 import com.behivordemo.R;
+import com.behivordemo.customview.ClearCircleView;
 import com.behivordemo.customview.SignInView;
 import com.behivordemo.material.MaterialAimUtils;
 
@@ -51,5 +49,14 @@ public class CustomShowActivity extends AppCompatActivity {
                 .build();
         materialAimUtils.setEixtMaterial(this);
         materialAimUtils.setEnterMaterial(this);
+
+        final ClearCircleView clearCircleView = (ClearCircleView) findViewById(R.id.cc_clear);
+
+        clearCircleView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                clearCircleView.startWave();
+            }
+        }, 500);
     }
 }
