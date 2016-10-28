@@ -98,8 +98,9 @@ public class SignInView extends View {
         circleY = (int) (signInBgRectF.top + signRectHeight / 2);
         descY = (int) (viewHeight * SECTION_SCALE) + signInBallRadio + textMarginTop;
         calculateCirclePoints(viewData);
-
-        progressRectF = signInPbRectFs.get(0);
+        if (null != signInPbRectFs && signInPbRectFs.size() != 0) {
+            progressRectF = signInPbRectFs.get(0);
+        }
 
     }
 
@@ -172,15 +173,19 @@ public class SignInView extends View {
     }
 
     private void drawSignDesc(Canvas canvas) {
-        for (int i = 0; i < viewData.size(); i++) {
-            Point p = descPoints.get(i);
-            canvas.drawText(viewData.get(i), p.x, p.y, signInTextPaint);
+        if (null != viewData && viewData.size() > 0) {
+            for (int i = 0; i < viewData.size(); i++) {
+                Point p = descPoints.get(i);
+                canvas.drawText(viewData.get(i), p.x, p.y, signInTextPaint);
+            }
         }
     }
 
     private void drawSignInNormalCircle(Canvas canvas) {
-        for (Point p : circlePoints) {
-            canvas.drawCircle(p.x, p.y, signInBallRadio, signInBgPaint);
+        if (circlePoints != null && circlePoints.size() > 0) {
+            for (Point p : circlePoints) {
+                canvas.drawCircle(p.x, p.y, signInBallRadio, signInBgPaint);
+            }
         }
     }
 

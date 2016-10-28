@@ -47,12 +47,11 @@ public class ClearCircleView extends View {
         paints = new ArrayList<>();
         circleRadiusList = new ArrayList<>();
         waveColors = new ArrayList<>();
-        waveColors.add(ContextCompat.getColor(getContext(), R.color.colorAccent));
-        waveColors.add(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-        waveColors.add(ContextCompat.getColor(getContext(), android.R.color.holo_green_light));
-        waveColors.add(ContextCompat.getColor(getContext(), android.R.color.holo_orange_light));
-        waveColors.add(ContextCompat.getColor(getContext(), android.R.color.holo_red_light));
-        waveColors.add(ContextCompat.getColor(getContext(), android.R.color.holo_purple));
+        waveColors.add(ContextCompat.getColor(getContext(), R.color.color_gray_20));
+        waveColors.add(ContextCompat.getColor(getContext(), R.color.color_gray_40));
+        waveColors.add(ContextCompat.getColor(getContext(), R.color.color_gray_60));
+        waveColors.add(ContextCompat.getColor(getContext(), R.color.color_gray_80));
+        waveColors.add(ContextCompat.getColor(getContext(), R.color.color_gray_100));
         waveColors.add(ContextCompat.getColor(getContext(), android.R.color.white));
 
         for (int paintColor : waveColors) {
@@ -120,6 +119,7 @@ public class ClearCircleView extends View {
                 }
             });
             valueAnimatorC.setRepeatCount(ValueAnimator.INFINITE);
+            valueAnimatorC.setRepeatMode(ValueAnimator.REVERSE);
             valueAnimatorC.setDuration(UNIT_TIME * waveColors.size());
             valueAnimatorC.setStartDelay(i * UNIT_TIME);
             valueAnimatorC.start();

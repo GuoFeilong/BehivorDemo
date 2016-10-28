@@ -19,4 +19,14 @@
         <attr name="android:scaleType" />
     </declare-styleable>
 
+    <declare-styleable name="WaveLineView">
+        <attr name="wave_first_color" format="color" />
+        <attr name="wave_second_color" format="color" />
+        <attr name="wave_line_width" format="dimension" />
+        <attr name="wave_phase" format="float" />
+        <attr name="wave_amplifier" format="float" />
+        <attr name="wave_frequency" format="float" />
+    </declare-styleable>
+
+
 </resources>

@@ -28,4 +28,14 @@
         <item name="sign_in_text_clor">@android:color/holo_purple</item>
         <item name="sign_in_text_size">12sp</item>
     </style>
+
+    <style name="def_waveline_style">
+        <item name="wave_first_color">@color/colorPrimary</item>
+        <item name="wave_second_color">@color/colorAccent</item>
+        <item name="wave_line_width">2dp</item>
+        <item name="wave_phase">45.0</item>
+        <item name="wave_amplifier">60.0</item>
+        <item name="wave_frequency">1.0</item>
+    </style>
+
 </resources>
