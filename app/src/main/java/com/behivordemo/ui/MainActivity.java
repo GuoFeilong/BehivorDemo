@@ -1,29 +1,26 @@
 package com.behivordemo.ui;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.behivordemo.R;
 import com.behivordemo.material.MaterialAimUtils;
@@ -33,7 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView recyclerView;
-    private List<String> testData;
+    private List<Entity> testData;
     private BehivorAdapter behivorAdapter;
     private TabLayout tabLayout;
     private MaterialAimUtils materialAimUtils;
@@ -76,14 +73,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView = (RecyclerView) findViewById(R.id.rv_test);
         testData = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
-            testData.add("测试--->>position=" + i);
+            testData.add(new Entity(false, "测试--->>position=" + i));
         }
         behivorAdapter = new BehivorAdapter();
         behivorAdapter.setData(testData);
         behivorAdapter.setOnReClickLister(new OnReClickLister() {
             @Override
             public void onReItemClick(int position) {
-                MaterialAimUtils.startActivityWithMaterialAim(MainActivity.this,CustomShowActivity.class);
+                MaterialAimUtils.startActivityWithMaterialAim(MainActivity.this, CustomShowActivity.class);
+            }
+        });
+        behivorAdapter.setOnCBCheckedListener(new OnCBCheckedListener() {
+            @Override
+            public void onChecked(int position) {
+                boolean hasChecked = testData.get(position).isHasChecked();
+                testData.get(position).setHasChecked(!hasChecked);
+                behivorAdapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, "--点击复选框--index--" + position + "---", Toast.LENGTH_SHORT).show();
             }
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -95,8 +101,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for (int i = 0; i < 4; i++) {
             tabLayout.addTab(tabLayout.newTab().setText("娱乐" + i));
         }
-
-
 
 
     }
@@ -159,14 +163,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     class BehivorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private List<String> data;
+        private List<Entity> data;
         private OnReClickLister onReClickLister;
+        private OnCBCheckedListener onCBCheckedListener;
 
         public void setOnReClickLister(OnReClickLister onReClickLister) {
             this.onReClickLister = onReClickLister;
         }
 
-        public void setData(List<String> data) {
+        public void setOnCBCheckedListener(OnCBCheckedListener onCBCheckedListener) {
+            this.onCBCheckedListener = onCBCheckedListener;
+        }
+
+        public void setData(List<Entity> data) {
             this.data = data;
         }
 
@@ -178,7 +187,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             BehivorVH behivorVH = (BehivorVH) holder;
-            behivorVH.testDesc.setText(data.get(position));
+            Entity entity = data.get(position);
+            behivorVH.testDesc.setText(entity.getDesc());
+            behivorVH.checkBox.setChecked(entity.hasChecked);
+            if (onCBCheckedListener != null) {
+                behivorVH.checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onCBCheckedListener.onChecked(position);
+                    }
+                });
+            }
             if (null != onReClickLister) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -196,15 +215,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         class BehivorVH extends RecyclerView.ViewHolder {
             private TextView testDesc;
+            private CheckBox checkBox;
 
             BehivorVH(View itemView) {
                 super(itemView);
                 testDesc = (TextView) itemView.findViewById(R.id.tv_desc);
+                checkBox = (CheckBox) itemView.findViewById(R.id.cb_status);
             }
         }
     }
 
     interface OnReClickLister {
         void onReItemClick(int position);
+    }
+
+    interface OnCBCheckedListener {
+        void onChecked(int position);
+    }
+
+    static class Entity {
+        private boolean hasChecked;
+        private String desc;
+
+        public Entity(boolean hasChecked, String desc) {
+            this.hasChecked = hasChecked;
+            this.desc = desc;
+        }
+
+        public String getDesc() {
+
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+
+        public boolean isHasChecked() {
+            return hasChecked;
+        }
+
+        public void setHasChecked(boolean hasChecked) {
+            this.hasChecked = hasChecked;
+        }
     }
 }
